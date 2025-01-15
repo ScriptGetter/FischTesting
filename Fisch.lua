@@ -1,6 +1,6 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Window = OrionLib:MakeWindow({Name = "Approved Hub | Version 3.208", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Approved Hub | Version 3.208", HidePremium = false, IntroText = "Fisch", SaveConfig = true, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
 	Name = "📃UPDATE LOG📃",
@@ -558,7 +558,7 @@ local Section = Tab:AddSection({
 	Name = "This is a Heaven's Rod Quest (FIXING)"
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Blue Energy Crystal",
     Callback = function()
         local teleportCoordinates = Vector3.new(20125, 210, 5450)
@@ -574,7 +574,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Yellow Energy Crystal",
     Callback = function()
         local teleportCoordinates = Vector3.new(19500, 335, 5555)
@@ -590,7 +590,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Green Energy Crystal",
     Callback = function()
         local teleportCoordinates = Vector3.new(19875, 450, 5555)
@@ -606,7 +606,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Red Energy Crystal",
     Callback = function()
         local teleportCoordinates = Vector3.new(19920, 1135, 5355)
@@ -622,7 +622,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Button #1 (Moosewood)",
     Callback = function()
         local teleportCoordinates = Vector3.new(400, 135, 265)
@@ -638,7 +638,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Button #2 (Ancient Isles)",
     Callback = function()
         local teleportCoordinates = Vector3.new(5505, 145, -315)
@@ -654,7 +654,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Button #3 (Snowcap Island)",
     Callback = function()
         local teleportCoordinates = Vector3.new(2930, 280, 2595)
@@ -670,7 +670,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Button #4 (Roslit Bay)",
     Callback = function()
         local teleportCoordinates = Vector3.new(-1715, 150, 735)
@@ -686,7 +686,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Button #5 (Forsaken Shores)",
     Callback = function()
         local teleportCoordinates = Vector3.new(-2565, 180, 1355)
@@ -702,7 +702,7 @@ local Tab:AddButton({
     end    
 })
 
-locL Tab:AddButton({
+Tab:AddButton({
     Name = "Avalanche Totem (Yellow Energy Crystal)",
     Callback = function()
         local teleportCoordinates = Vector3.new(19710, 470, 6060)
@@ -718,13 +718,13 @@ locL Tab:AddButton({
     end    
 })
 
-local Tab = Window:MakeTab({
+Tab = Window:MakeTab({
 	Name = "Totems",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Sundial Totem - Cost 2,000",
     Callback = function()
         local teleportCoordinates = Vector3.new(-1215, 195, -1040)
@@ -740,7 +740,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Aurora Totem - Cost 500,000",
     Callback = function()
         local teleportCoordinates = Vector3.new(-1808, -135, -3285)
@@ -756,7 +756,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Tempest Totem - Cost 2,000",
     Callback = function()
         local teleportCoordinates = Vector3.new(35, 132, 1944)
@@ -772,7 +772,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Windset Totem - Cost 2,000",
     Callback = function()
         local teleportCoordinates = Vector3.new(2845, 180, 2700)
@@ -788,7 +788,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Smokescreen Totem - Cost 2,000",
     Callback = function()
         local teleportCoordinates = Vector3.new(2790, 140, -626)
@@ -804,7 +804,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Meteorite Totem - Cost 75,000",
     Callback = function()
         local teleportCoordinates = Vector3.new(1945, 275, 230)
@@ -820,7 +820,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Eclipse Totem - Cost 250,000",
     Callback = function()
         local teleportCoordinates = Vector3.new(5940, 265, 900)
@@ -840,7 +840,7 @@ local Section = Tab:AddSection({
 	Name = "Relics/Enchant"
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Go To Merlin (Buy Relic)",
     Callback = function()
         local teleportCoordinates = Vector3.new(-942, 223, -988)
@@ -856,7 +856,7 @@ local Tab:AddButton({
     end    
 })
 
-local Tab:AddButton({
+Tab:AddButton({
     Name = "Enchant Area",
     Callback = function()
         local teleportCoordinates = Vector3.new(30, 144, -1025)
