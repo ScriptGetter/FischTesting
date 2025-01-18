@@ -1,30 +1,6 @@
--- References to the UI components
-local screenGui = script.Parent
-local textLabel = screenGui:WaitForChild("TextLabel")
-
--- Initial Text
-textLabel.Text = "Press RightShift"
-
--- Function to handle RightShift key press
-local function onKeyPress(input, gameProcessed)
-    if gameProcessed then return end -- Ignore if the input is already processed by the game
-
-    if input.KeyCode == Enum.KeyCode.RightShift then
-        -- Toggle the message
-        if textLabel.Text == "Press RightShift" then
-            textLabel.Text = "RightShift Pressed!"
-        else
-            textLabel.Text = "Press RightShift"
-        end
-    end
-end
-
--- Connect the function to listen for the key press
-game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
-
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Window = OrionLib:MakeWindow({Name = "Approved Hub | Version 3.208", HidePremium = false, IntroText = "Fisch", SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Approved Hub | Version 3.3", HidePremium = false, IntroText = "Fisch | Version 3.3", SaveConfig = true, ConfigFolder = "OrionTest"})
 
 local Tab = Window:MakeTab({
 	Name = "📃UPDATE LOG📃",
@@ -51,7 +27,7 @@ Tab:AddButton({
 })
 
 Tab:AddButton({
-	Name = "This is a test.",
+	Name = "ADDED NORMAL FARM.",
 	Callback = function()
       		print("button pressed")
   	end    
@@ -223,6 +199,134 @@ Tab:AddToggle({
     end
 })
 
+local config = {
+    fpsCap = 60,
+    disableChat = false,            -- Set to true to hide the chat
+    enableBigButton = false,        -- Set to true to enlarge the button in the shake UI
+    bigButtonScaleFactor = 2,      -- Scale factor for big button size
+    shakeSpeed = 0.1,              -- Lower value means faster shake (e.g., 0.1 for normal)
+    freezeWhileFishing = true,     -- Set to true to freeze your character while fishing
+    biteWaitTime = {3, 7}          -- Random wait time for fish to "bite" (in seconds)
+}
+
+-- Services
+local players = game:GetService("Players")
+local vim = game:GetService("VirtualInputManager")
+local run_service = game:GetService("RunService")
+local replicated_storage = game:GetService("ReplicatedStorage")
+local localplayer = players.LocalPlayer
+local playergui = localplayer.PlayerGui
+local StarterGui = game:GetService("StarterGui")
+
+-- Set FPS cap
+setfpscap(config.fpsCap)
+
+-- Disable chat if the option is enabled in config
+if config.disableChat then
+    StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+end
+
+-- Utility functions
+local utility = {}
+function utility.simulate_click(x, y, mb)
+    vim:SendMouseButtonEvent(x, y, (mb - 1), true, game, 1)
+    vim:SendMouseButtonEvent(x, y, (mb - 1), false, game, 1)
+end
+
+-- Fishing system
+local farm = {running = false}
+
+function farm.find_rod()
+    local character = localplayer.Character
+    if not character then return nil end
+
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") and (tool.Name:find("rod") or tool.Name:find("Rod")) then
+            return tool
+        end
+    end
+    return nil
+end
+
+function farm.freeze_character(freeze)
+    local character = localplayer.Character
+    if character then
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.WalkSpeed = freeze and 0 or 16  -- Default WalkSpeed
+            humanoid.JumpPower = freeze and 0 or 50  -- Default JumpPower
+        end
+    end
+end
+
+function farm.cast()
+    local rod = farm.find_rod()
+    if not rod then return end
+
+    local args = { [1] = 100, [2] = 1 }
+    rod.events.cast:FireServer(unpack(args))
+end
+
+function farm.wait_for_bite()
+    local waitTime = math.random(config.biteWaitTime[1], config.biteWaitTime[2])
+    task.wait(waitTime)
+end
+
+function farm.reel()
+    local reel_ui = playergui:FindFirstChild("reel")
+    if reel_ui then
+        local reel_bar = reel_ui:FindFirstChild("bar")
+        if reel_bar then
+            local button = reel_bar:FindFirstChild("button")
+            if button and button.Visible then
+                utility.simulate_click(
+                    button.AbsolutePosition.X + button.AbsoluteSize.X / 2,
+                    button.AbsolutePosition.Y + button.AbsoluteSize.Y / 2,
+                    1
+                )
+            end
+        end
+    end
+end
+
+-- Main loop
+function farm.start()
+    farm.running = true
+    while farm.running do
+        local rod = farm.find_rod()
+        if rod then
+            if config.freezeWhileFishing then
+                farm.freeze_character(true)
+            end
+            farm.cast()
+            farm.wait_for_bite()
+            farm.reel()
+        else
+            farm.freeze_character(false)
+        end
+    end
+end
+
+function farm.stop()
+    farm.running = false
+    farm.freeze_character(false) -- Unfreeze character when stopping
+end
+
+-- Toggle UI Button
+Tab:AddToggle({
+    Name = " Normal Auto Fish",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            -- Start fishing system
+            farm.start()
+        else
+            -- Stop fishing system
+            farm.stop()
+        end
+        print("Fishing system is now " .. (Value and "ON" or "OFF"))
+    end
+})
 
 -- Get all players in the game (excluding the local player)
 local players = {}
