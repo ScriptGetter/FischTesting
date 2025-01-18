@@ -200,10 +200,10 @@ Tab:AddToggle({
 })
 
 local config = {
-    fpsCap = 60,
+    fpsCap = 9999,
     disableChat = false,            -- Set to true to hide the chat
     enableBigButton = false,        -- Set to true to enlarge the button in the shake UI
-    bigButtonScaleFactor = 2,      -- Scale factor for big button size
+    bigButtonScaleFactor = 0.5,      -- Scale factor for big button size
     shakeSpeed = 0.1,              -- Lower value means faster shake (e.g., 0.1 for normal)
     freezeWhileFishing = true,     -- Set to true to freeze your character while fishing
     biteWaitTime = {3, 7}          -- Random wait time for fish to "bite" (in seconds)
