@@ -1,3 +1,27 @@
+-- References to the UI components
+local screenGui = script.Parent
+local textLabel = screenGui:WaitForChild("TextLabel")
+
+-- Initial Text
+textLabel.Text = "Press RightShift"
+
+-- Function to handle RightShift key press
+local function onKeyPress(input, gameProcessed)
+    if gameProcessed then return end -- Ignore if the input is already processed by the game
+
+    if input.KeyCode == Enum.KeyCode.RightShift then
+        -- Toggle the message
+        if textLabel.Text == "Press RightShift" then
+            textLabel.Text = "RightShift Pressed!"
+        else
+            textLabel.Text = "Press RightShift"
+        end
+    end
+end
+
+-- Connect the function to listen for the key press
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
+
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
 local Window = OrionLib:MakeWindow({Name = "Approved Hub | Version 3.208", HidePremium = false, IntroText = "Fisch", SaveConfig = true, ConfigFolder = "OrionTest"})
